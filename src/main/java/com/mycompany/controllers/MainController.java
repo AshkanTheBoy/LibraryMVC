@@ -3,8 +3,6 @@ package com.mycompany.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
@@ -44,6 +42,8 @@ public class MainController{
         return "create";
     }
 
+    //Don't want to use any javascript, but <a> tags support only GET requests
+    //So, when you click on the "delete" link - the entry is removed
     @GetMapping("/delete/{id}")
     public String deleteBookById(@PathVariable("id") long id){
         service.deleteById(id);
@@ -57,6 +57,9 @@ public class MainController{
         return "redirect:/";
     }
 
+    //Don't want to use javascript for simplicity
+    //<form> tags natively support only GET and POST requests
+    //so we use post request here to edit an entry
     @PostMapping("/edit/{id}/submit")
     public String updateBookById(@PathVariable("id") long id,
                                 @ModelAttribute("book") Book book){
